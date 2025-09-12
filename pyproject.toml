@@ -1,63 +1,45 @@
-[features]  # defines the plugin features contained into this plugin
-instruments = true  # true if plugin contains instrument classes (else false, notice the lowercase for toml files)
-extensions = false  # true if plugins contains dashboard extensions
-models = false  # true if plugins contains pid models
-h5exporters = false  # true if plugin contains custom h5 file exporters
-scanners = false  # true if plugin contains custom scan layout (daq_scan extensions)
-
-[urls]
-package-url = 'https://github.com/PyMoDAQ/pymodaq_plugins_template' #todo modify url by your plugin url
-
-[project]
-name = "pymodaq_plugins_template" #todo modify template by your plugin short name
-description = 'some word about your plugin'
-dependencies = [
-    "pymodaq>=5.0.0",
-    #todo: list here all dependencies your package may have
-]
-
-authors = [
-    {name = "Name Surname", email = "myname@test.fr"},
-    #todo: list here all authors of your plugin
-]
-maintainers = [
-    {name = "Name Surname", email = "myname@test.fr"},
-    #todo: list here all maintainers of your plugin
-]
-
-# nottodo: leave everything below as is!
-
-dynamic = ["version", "urls", "entry-points"]
-readme = "README.rst"
-license = { file="LICENSE" }
-requires-python = ">=3.8"
-
-classifiers = [
-    "Development Status :: 5 - Production/Stable",
-    "Intended Audience :: Science/Research",
-    "License :: OSI Approved :: MIT License",
-    "Natural Language :: English",
-    "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
-    "Topic :: Scientific/Engineering :: Human Machine Interfaces",
-    "Topic :: Scientific/Engineering :: Visualization",
-    "Topic :: Software Development :: Libraries :: Python Modules",
-    "Topic :: Software Development :: User Interfaces",
-]
-
 [build-system]
-requires = [
-    "hatchling>=1.9.0",
-    "hatch-vcs", "toml",
-    "pymodaq_utils>=0.0.6",
-]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
-[tool.hatch.metadata.hooks.custom]
+[project]
+name = "pymodaq-plugins-spectraphysics"
+dynamic = ["version"]
+description = "Set of PyMoDAQ plugins for devices from SpectraPhysics"
+readme = "README.rst"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = ["PyMoDAQ", "plugin", "instrument", "MaiTai"]
+authors = [
+{ name = "Brian Squires", email = "Brian.Squires@unt.edu" },
+]
+classifiers = [
+"Development Status :: 4 - Beta",
+"Programming Language :: Python :: 3",
+"Programming Language :: Python :: 3.9",
+"Programming Language :: Python :: 3.10",
+"Programming Language :: Python :: 3.11",
+"License :: OSI Approved :: MIT License",
+"Operating System :: OS Independent",
+]
+dependencies = [
+"pymodaq>=5.1",
+"pyserial",
+]
+
+[project.urls]
+Homepage = "https://www.google.com/search?q=https://github.com/your-github/pymodaq_plugins_spectraphysics"
+"Bug Tracker" = "https://www.google.com/search?q=https://github.com/your-github/pymodaq_plugins_spectraphysics/issues"
 
 [tool.hatch.version]
 source = "vcs"
+raw-options.fallback-version = "0.0.0"
 
+[tool.hatch.build.targets.wheel.sources]
+"src/pymodaq_plugins_spectraphysics" = "src/pymodaq_plugins_spectraphysics"
+
+[project.entry-points."pymodaq.plugins"]
+SpectraPhysics = "pymodaq_plugins_spectraphysics"
+
+[project.entry-points."pymodaq.instruments"]
+MaiTai = "pymodaq_plugins_spectraphysics.daq_move_plugins.daq_move_MaiTai:DAQ_Move_MaiTai"
