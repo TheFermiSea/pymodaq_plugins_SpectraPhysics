@@ -1,8 +1,11 @@
 import serial
 import time
-from pymodaq.utils.daq_utils import ThreadCommand, get_logger
+import logging
+from pymodaq.utils.daq_utils import ThreadCommand
+from pymodaq_utils.logger import set_logger
 
-logger = get_logger('MaiTaiController')
+set_logger('MaiTaiController')
+logger = logging.getLogger('MaiTaiController')
 
 class MaiTaiController:
     """

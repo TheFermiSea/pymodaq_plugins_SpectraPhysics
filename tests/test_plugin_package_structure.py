@@ -20,9 +20,8 @@ MANDATORY_VIEWER_METHODS = ['ini_attributes', 'grab_data', 'close', 'commit_sett
 
 
 def get_package_name():
-    here = Path(__file__).parent
-    package_name = here.parent.stem
-    return package_name
+    # Return the actual installed package name rather than directory name
+    return 'pymodaq_plugins_spectraphysics'
 
 def get_move_plugins():
     pkg_name = get_package_name()

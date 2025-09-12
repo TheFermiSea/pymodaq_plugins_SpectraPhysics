@@ -1,13 +1,17 @@
 import numpy as np
+import logging
 from pymodaq.control_modules.move_utility_classes import DAQ_Move_base, comon_parameters_fun, main
-from pymodaq.utils.daq_utils import ThreadCommand, get_logger
-from pymodaq_data.datamodel import DataActuator
+from pymodaq.utils.daq_utils import ThreadCommand
+from pymodaq_utils.logger import set_logger
+from pymodaq_data.data import DataRaw as DataActuator
 from qtpy.QtCore import Signal, QTimer
 
 from pymodaq_plugins_spectraphysics.hardware.maitai_control import MaiTaiController
+from pymodaq_plugins_spectraphysics.daq_move_plugins.maitai_ui import MaiTaiUI
 from pymodaq_plugins_spectraphysics import config
 
-logger = get_logger('daq_move_MaiTai')
+set_logger('daq_move_MaiTai')
+logger = logging.getLogger('daq_move_MaiTai')
 maitai_config = config.get_hardware_config("maitai")
 
 
@@ -17,8 +21,6 @@ class DAQ_Move_MaiTai(DAQ_Move_base):
     Features a custom UI for comprehensive laser status and control.
     """
 
-    _ui_file = "maitai_ui.py"
-    _ui_class_name = "MaiTaiUI"
     
     _controller_units = "nm"
     is_multiaxes = False

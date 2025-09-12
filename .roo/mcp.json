@@ -6,6 +6,19 @@
         "-y",
         "@modelcontextprotocol/server-memory"
       ]
+    },
+    "gitmcp_Docs": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://gitmcp.io/docs"
+      ]
+    },
+    "octocode": {
+      "command": "npx",
+      "args": [
+        "octocode-mcp"
+      ]
     }
   }
 }

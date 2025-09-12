@@ -23,7 +23,7 @@ classifiers = [
 "Operating System :: OS Independent",
 ]
 dependencies = [
-"pymodaq>=5.1",
+"pymodaq>=5.0.18",
 "pyserial",
 ]
 
@@ -33,10 +33,10 @@ Homepage = "https://www.google.com/search?q=https://github.com/your-github/pymod
 
 [tool.hatch.version]
 source = "vcs"
-raw-options.fallback-version = "0.0.0"
+fallback-version = "0.0.0"
 
 [tool.hatch.build.targets.wheel.sources]
-"src/pymodaq_plugins_spectraphysics" = "src/pymodaq_plugins_spectraphysics"
+"src/pymodaq_plugins_spectraphysics" = "pymodaq_plugins_spectraphysics"
 
 [project.entry-points."pymodaq.plugins"]
 SpectraPhysics = "pymodaq_plugins_spectraphysics"

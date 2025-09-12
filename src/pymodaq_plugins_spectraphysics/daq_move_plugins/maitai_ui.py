@@ -1,12 +1,10 @@
 from qtpy import QtWidgets, QtCore
 from qtpy.QtCore import Signal, QObject
-from qtpy.QtGui import QColor, QPalette
+from pymodaq_gui.utils import QLED
 
 class MaiTaiUI(QObject):
     """
-    User interface for the MaiTai laser plugin, inspired by the manual's control panel.
-    
-    Provides dedicated buttons for shutter control, laser operation, and status displays.
+    User interface for the MaiTai laser plugin, using standard PyMoDAQ widgets.
     """
     
     # Signals to connect to plugin methods
@@ -30,18 +28,18 @@ class MaiTaiUI(QObject):
         status_group = QtWidgets.QGroupBox("Status")
         status_layout = QtWidgets.QFormLayout()
 
-        self.power_label = self._create_status_label()
-        self.wavelength_label = self._create_status_label()
-        self.shutter_label = self._create_status_label("Unknown", "gray")
-        self.modelock_label = self._create_status_label("Inactive", "gray")
-        self.laser_status_label = self._create_status_label("Off", "gray")
-        self.warmup_label = self._create_status_label()
+        self.power_label = QtWidgets.QLabel("-")
+        self.wavelength_label = QtWidgets.QLabel("-")
+        self.shutter_led = QLED(self.parent_widget, on_color="green", off_color="red")
+        self.modelock_led = QLED(self.parent_widget, on_color="green", off_color="orange")
+        self.laser_status_led = QLED(self.parent_widget, on_color="green", off_color="red")
+        self.warmup_label = QtWidgets.QLabel("-")
 
         status_layout.addRow("Output Power (W):", self.power_label)
         status_layout.addRow("Wavelength (nm):", self.wavelength_label)
-        status_layout.addRow("Shutter:", self.shutter_label)
-        status_layout.addRow("Mode Lock:", self.modelock_label)
-        status_layout.addRow("Laser Status:", self.laser_status_label)
+        status_layout.addRow("Shutter:", self.shutter_led)
+        status_layout.addRow("Mode Lock:", self.modelock_led)
+        status_layout.addRow("Laser Status:", self.laser_status_led)
         status_layout.addRow("Warmup:", self.warmup_label)
         status_group.setLayout(status_layout)
 
@@ -74,23 +72,6 @@ class MaiTaiUI(QObject):
         self.open_shutter_button.clicked.connect(self.open_shutter_signal.emit)
         self.close_shutter_button.clicked.connect(self.close_shutter_signal.emit)
         
-    def _create_status_label(self, text="-", color=None):
-        label = QtWidgets.QLabel(text)
-        label.setFrameShape(QtWidgets.QFrame.StyledPanel)
-        label.setFrameShadow(QtWidgets.QFrame.Sunken)
-        label.setMinimumWidth(80)
-        label.setAlignment(QtCore.Qt.AlignCenter)
-        if color:
-            self._set_label_color(label, color)
-        return label
-
-    def _set_label_color(self, label: QtWidgets.QLabel, color: str):
-        palette = label.palette()
-        palette.setColor(QPalette.Window, QColor(color))
-        palette.setColor(QPalette.WindowText, QColor("white") if color not in ["lightgray", "orange"] else QColor("black"))
-        label.setPalette(palette)
-        label.setAutoFillBackground(True)
-
     def update_power(self, power: float):
         self.power_label.setText(f"{power:.3f}")
 
@@ -98,19 +79,13 @@ class MaiTaiUI(QObject):
         self.wavelength_label.setText(f"{wavelength:.1f}")
 
     def update_shutter_status(self, status: str):
-        self.shutter_label.setText(status)
-        color = "green" if status == "Open" else "red"
-        self._set_label_color(self.shutter_label, color)
+        self.shutter_led.set_as(status == "Open")
 
     def update_modelock_status(self, status: str, locked: bool):
-        self.modelock_label.setText(status)
-        color = "green" if locked else "orange"
-        self._set_label_color(self.modelock_label, color)
+        self.modelock_led.set_as(locked)
 
     def update_laser_status(self, status: str):
-        self.laser_status_label.setText(status)
-        color_map = {"On": "green", "Off": "red", "Warming up": "orange"}
-        self._set_label_color(self.laser_status_label, color_map.get(status, "lightgray"))
+        self.laser_status_led.set_as(status == "On")
 
     def update_warmup_time(self, time_str: str):
         self.warmup_label.setText(time_str)

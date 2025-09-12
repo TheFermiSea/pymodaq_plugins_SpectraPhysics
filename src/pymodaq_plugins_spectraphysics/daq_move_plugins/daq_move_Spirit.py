@@ -1,12 +1,16 @@
+import numpy as np
+import logging
 from pymodaq.control_modules.move_utility_classes import DAQ_Move_base, comon_parameters_fun, main
-from pymodaq.utils.daq_utils import ThreadCommand, get_logger
-from pymodaq_data.datamodel import DataActuator
+from pymodaq.utils.daq_utils import ThreadCommand
+from pymodaq_utils.logger import set_logger
+from pymodaq_data.data import DataRaw as DataActuator
 from qtpy.QtCore import Signal, QTimer
 
 from pymodaq_plugins_spectraphysics.hardware.spirit_control import SpiritController
 from pymodaq_plugins_spectraphysics import config
 
-logger = get_logger('daq_move_Spirit')
+set_logger('daq_move_Spirit')
+logger = logging.getLogger('daq_move_Spirit')
 spirit_config = config.get_hardware_config("spirit")
 
 class DAQ_Move_Spirit(DAQ_Move_base):

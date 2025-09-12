@@ -1,8 +1,10 @@
 import socket
 import time
-from pymodaq.utils.daq_utils import get_logger
+import logging
+from pymodaq_utils.logger import set_logger
 
-logger = get_logger('SpiritController')
+set_logger('SpiritController')
+logger = logging.getLogger('SpiritController')
 
 try:
     import can
