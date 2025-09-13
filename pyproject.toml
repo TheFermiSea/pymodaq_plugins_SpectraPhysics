@@ -29,8 +29,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://www.google.com/search?q=https://github.com/your-github/pymodaq_plugins_spectraphysics"
-"Bug Tracker" = "https://www.google.com/search?q=https://github.com/your-github/pymodaq_plugins_spectraphysics/issues"
+Homepage = "https://github.com/TheFermiSea/pymodaq_plugins_SpectraPhysics"
+"Bug Tracker" = "https://github.com/TheFermiSea/pymodaq_plugins_SpectraPhysics/issues"
 
 [tool.hatch.version]
 source = "vcs"
