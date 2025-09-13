@@ -1,0 +1,19 @@
+[maitai]
+# MaiTai Ti:Sapphire Laser Configuration
+port = "/dev/ttyUSB6"
+baudrate = 9600
+timeout = 5.0
+wavelength_min = 690.0
+wavelength_max = 1040.0
+wavelength_units = "nm"
+default_wavelength = 800.0
+
+[spirit]
+# Spirit 1040 SHG HE Configuration
+port = "COM4"
+baudrate = 9600
+timeout = 5.0
+wavelength_min = 520.0
+wavelength_max = 1040.0
+wavelength_units = "nm"
+default_wavelength = 1040.0

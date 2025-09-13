@@ -23,8 +23,9 @@ classifiers = [
 "Operating System :: OS Independent",
 ]
 dependencies = [
-"pymodaq>=5.0.18",
-"pyserial",
+    "pymodaq>=5.0.18",
+    "pyserial",
+    "rich>=14.1.0",
 ]
 
 [project.urls]

@@ -1,0 +1,6 @@
+ruleDirs:
+- /home/maitai/pymodaq_plugins_SpectraPhysics/rules
+testConfigs:
+- testDir: /home/maitai/pymodaq_plugins_SpectraPhysics/rule-tests
+utilDirs:
+- /home/maitai/pymodaq_plugins_SpectraPhysics/utils
